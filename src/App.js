@@ -1,23 +1,38 @@
 import './App.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+function useLogger(value) {
+  useEffect(() => {
+    console.log(value)
+  }, [value])
+}
+
+function useInput(vinitialValue) {
+  const [value, setValue] = useState(vinitialValue)
+
+  function onChange(e) {
+    setValue(e.target.value)
+  }
+
+  return {
+    value,
+    onChange
+  }
+}
 
 function App() {
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
 
-  const changeNameHandler = event => {
-    return setName(event.target.value)
-  }
+  const input = useInput('')
+  const lastName = useInput('')
 
-  const changeLastNameHandler = event => {
-    return setLastName(event.target.value)
-  }
+  useLogger(input.value)
 
   return (
       <div className="container p-5">
-        <input type="text" value={name} onChange={changeNameHandler}/>
-        <input type="text" value={lastName} onChange={changeLastNameHandler}/>
-        <div>Name: {name} / Last Name: {lastName}</div>
+        <input type="text" {...input} />
+        <input type="text" {...lastName} />
+        <div>Name: {input.value} / Last Name:{lastName.value}</div>
+        <button>Clear text</button>
       </div>
   )
 }
