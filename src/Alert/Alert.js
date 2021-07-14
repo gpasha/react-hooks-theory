@@ -4,7 +4,7 @@ import { useAlert } from './AlertContext'
 export default function Alert() {
     const alertValue = useAlert()
 
-    if (!alertValue.show) return null
+    if (!alertValue) return null
 
     return (
         <div className="alert alert-danger">
