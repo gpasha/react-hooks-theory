@@ -1,10 +1,10 @@
 import React from 'react'
-import {AlertContext} from '../App'
+import { useAlert } from './AlertContext'
 
 export default function Alert() {
-    const alertValue = React.useContext(AlertContext)
+    const alertValue = useAlert()
 
-    if (!alertValue) return null
+    if (!alertValue.show) return null
 
     return (
         <div className="alert alert-danger">
