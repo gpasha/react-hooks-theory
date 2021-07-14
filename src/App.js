@@ -1,17 +1,24 @@
 import './App.css'
-import Alert from './Alert/Alert'
-import Main from './Main/Main'
-import React from 'react'
-import AlertContextComponent from './Alert/AlertContext'
+import React, { useState } from 'react'
 
 function App() {
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  const changeNameHandler = event => {
+    return setName(event.target.value)
+  }
+
+  const changeLastNameHandler = event => {
+    return setLastName(event.target.value)
+  }
+
   return (
-    <AlertContextComponent>
       <div className="container p-5">
-        <Alert />
-        <Main/>
+        <input type="text" value={name} onChange={changeNameHandler}/>
+        <input type="text" value={lastName} onChange={changeLastNameHandler}/>
+        <div>Name: {name} / Last Name: {lastName}</div>
       </div>
-    </AlertContextComponent>
   )
 }
 
