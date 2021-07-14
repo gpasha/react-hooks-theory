@@ -10,29 +10,35 @@ function useLogger(value) {
 function useInput(vinitialValue) {
   const [value, setValue] = useState(vinitialValue)
 
-  function onChange(e) {
+  const onChange = e => {
     setValue(e.target.value)
   }
 
+  const clear = () => {
+    setValue('')
+  }
+
   return {
+    bind: {
+      value,
+      onChange
+    },
     value,
-    onChange
+    clear
   }
 }
 
 function App() {
 
   const input = useInput('')
-  const lastName = useInput('')
 
   useLogger(input.value)
 
   return (
       <div className="container p-5">
-        <input type="text" {...input} />
-        <input type="text" {...lastName} />
-        <div>Name: {input.value} / Last Name:{lastName.value}</div>
-        <button>Clear text</button>
+        <input type="text" {...input.bind} />
+        <div>Name: {input.value}</div>
+        <button onClick={input.clear}>Clear text</button>
       </div>
   )
 }
