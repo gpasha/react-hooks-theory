@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAlert } from '../Alert/AlertContext'
 
-export default function Main({  }) {
+export default function Main() {
     const context = useAlert()
     return (
         <div>
