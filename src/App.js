@@ -1,32 +1,21 @@
-import './App.css';
-import { useState, useCallback } from 'react'
-import ItemsList from './ItemsList';
+import './App.css'
+import Alert from './Alert/Alert'
+import Main from './Main/Main'
+import React from 'react'
+
+//ex.1
+export const AlertContext = React.createContext()
 
 function App() {
-
-  const [counter, setCounter] = useState(0)
-  const [colored, setColored] = useState(false)
-
-  const styles ={
-    color: colored ? 'red' : 'black'
-  }
-
-  const generateItems = useCallback(() => {
-    return new Array(counter).fill('').map((_, index) => `text ${index + 1}`)
-  }, [counter])
-
+  const [alert, setAlert] = React.useState(false)
   return (
-    <div className="App">
-      <h1 style={styles}>Counter: {counter}</h1>
-      <div>
-        <button onClick={() => setCounter(prevCount => prevCount + 1)} className="btn btn-success">Add</button>
-        <button onClick={() => setColored(prevColor => !prevColor)} className="btn btn-warning">Change color</button>
+    <AlertContext.Provider value={alert}>
+      <div className="container p-5">
+        <Alert />
+        <Main toggle={() => setAlert(prev => !prev)}/>
       </div>
-
-      <ItemsList listItemsFunc={generateItems} />
-      
-    </div>
-  );
+    </AlertContext.Provider>
+  )
 }
 
-export default App;
+export default App
